@@ -25,12 +25,7 @@ class AccountServiceTests {
 
     @Test
     void accountIsSaved() {
-        Account account = Account
-                .builder()
-                .name("Toto")
-                .email("toto@example.com")
-                .password("secret")
-                .build();
+        Account account = buildAccount();
 
         accountService.signUp(account);
 
@@ -39,15 +34,19 @@ class AccountServiceTests {
 
     @Test
     void emailIsSentUponSignUp() {
-        Account account = Account
+        Account account = buildAccount();
+
+        accountService.signUp(account);
+
+        verify(mailerService).sendConfirmationEmail(any(Account.class));
+    }
+
+    private Account buildAccount() {
+        return Account
                 .builder()
                 .name("Toto")
                 .email("toto@example.com")
                 .password("secret")
                 .build();
-
-        accountService.signUp(account);
-
-        verify(mailerService).sendConfirmationEmail(any(Account.class));
     }
 }
