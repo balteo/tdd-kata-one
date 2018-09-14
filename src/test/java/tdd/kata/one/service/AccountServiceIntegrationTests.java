@@ -36,7 +36,8 @@ class AccountServiceIntegrationTests {
                 .build();
 
         assertThatExceptionOfType(ConstraintViolationException.class)
-                .isThrownBy(() -> accountService.signUp(account));
+                .isThrownBy(() -> accountService.signUp(account))
+                .matches(e -> e.getConstraintViolations().size() == 1);
 
         verify(accountRepository, never()).save(any(Account.class));
     }
