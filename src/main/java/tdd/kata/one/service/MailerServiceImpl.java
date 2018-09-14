@@ -17,6 +17,8 @@ public class MailerServiceImpl implements MailerService {
     @Override
     public void sendConfirmationEmail(Account account) {
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setSubject("Hello " + account.getName());
+        message.setText("This is the text");
         message.setTo(account.getEmail());
         mailSender.send(message);
     }
