@@ -14,8 +14,10 @@ public class ReactiveAccountService {
     }
 
     public Mono<Void> signUp(Mono<Account> accountMono) {
-        accountMono.subscribe(account -> accountService.signUp(account));
-        return Mono.empty();
+        return accountMono.flatMap(account -> {
+            accountService.signUp(account);
+            return Mono.empty();
+        });
     }
 
 }
