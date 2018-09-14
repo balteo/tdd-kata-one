@@ -27,10 +27,6 @@ class AccountServiceIntegrationTests {
     private AccountRepository accountRepository;
 
     @Test
-    void accountServiceIsInjected() {
-    }
-
-    @Test
     void passwordShouldHaveMinLength() {
         Account account = Account
                 .builder()
